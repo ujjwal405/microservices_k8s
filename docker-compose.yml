@@ -1,0 +1,103 @@
+version: '3.9'
+services:
+
+ mongodb_auth:
+  container_name: mongo_auth
+  image: mongo:latest
+  restart: no
+  environment:
+    - MONGO_INITDB_ROOT_USERNAME=user
+    - MONGO_INITDB_ROOT_PASSWORD=password
+  volumes:
+    - auth_data:/data/db
+  networks:
+    - wp-network
+
+
+ mongodb_product:
+  container_name: mongo_product
+  image: mongo:latest
+  restart: no
+  environment:
+    - MONGO_INITDB_ROOT_USERNAME=user
+    - MONGO_INITDB_ROOT_PASSWORD=password
+  volumes:
+    - product_data:/data/db
+  networks:
+    - wp-network
+
+
+
+ authentication:
+  build: ./services/authentication
+  container_name: auth
+  restart: on-failure
+  environment:
+   - ADDRESS_AUTH=:9090
+   - RABBITMQ_ADD=amqp://myuser:mypassword@rabbitmq3:5672/
+   - SECRET_KEY=secret
+   - MONGODB_URL=mongodb://user:password@mongodb_auth:27017/
+  ports:
+   - "8080:8080"
+  networks:
+   - wp-network
+  depends_on:
+   - rabbitmq3
+   - mongodb_auth
+   
+
+
+ mail:
+  build: ./services/mail
+  container_name: mailing
+  restart: on-failure
+  environment:
+   - FROM_EMAIL_ADDRESS=abc@gmail.com
+   - RABBITMQ_ADD=amqp://myuser:mypassword@rabbitmq3:5672/
+   - FROM_PASSWORD_EMAIL=fffffffffffff
+   - Name=Ecommerce Service
+  networks:
+   - wp-network
+  depends_on:
+   - rabbitmq3
+
+ product:
+  build: ./services/Product
+  container_name: product
+  restart: no
+  environment:
+   - PRODUCT_MONGO_URL=mongodb://user:password@mongodb_product:27017/
+   - AUTHENTICATION_GRPC_ADD=authentication:9090
+  ports:
+   - "9090:8080"
+  networks:
+   - wp-network
+  depends_on:
+   - mongodb_product
+   - authentication
+
+ rabbitmq3:
+  container_name: rabbitmq
+  image: rabbitmq:management-alpine
+  restart: on-failure
+  environment:
+   - RABBITMQ_DEFAULT_USER=myuser
+   - RABBITMQ_DEFAULT_PASS=mypassword
+  ports:
+   - "15672:15672"
+   - "5672:5672"
+  volumes:
+   - rabbitmq_data:/var/lib/rabbitmq 
+  networks:
+   - wp-network
+ 
+volumes:
+  auth_data:
+  product_data:
+  rabbitmq_data:
+
+networks:
+ wp-network:
+  driver: bridge
+ 
+ 

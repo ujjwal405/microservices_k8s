@@ -1,0 +1,14 @@
+syntax="proto3";
+option go_package="./commonpkg/proto";
+
+service AuthService{
+    rpc FetchData(Request)returns(Response);
+}
+message Request{
+    string token=1;
+}
+message Response{
+    string userid=1;
+    bool valid=2;
+    string username=3;
+}
