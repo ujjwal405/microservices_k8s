@@ -24,12 +24,19 @@ in docker-compose file.
 
 steps:
 1 kubectl create ns app
+
 2 kubectl create ns db
+
 3 helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets
+
 4 helm repo update
+
 5 helm install sealed-secrets-controller --namespace kube-system  sealed-secrets/sealed-secrets
+
 6 create  k8s secret for auth, product, mail, mongodb and rabbitmq  in db namespace inside secret folder in root directory.
+
 7 Get access public key from the controller using below command
+
    kubeseal --fetch-cert --controller-name <name of controller> --controller-namespace kube-system
    
 8  helm repo add my-repo https://charts.bitnami.com/bitnami 
