@@ -39,7 +39,7 @@ steps:
 
    kubeseal --fetch-cert --controller-name <name of controller> --controller-namespace kube-system
    
-8  helm repo add my-repo https://charts.bitnami.com/bitnami 
+8 
 
 9  kubeseal -f ./secrets/ -w ./kubernetes/sealed_secret/
 
