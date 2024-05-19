@@ -12,6 +12,7 @@ func InitRoutes(handler *user.Handler) {
 	r.POST("/signup", handler.Signup)
 	r.POST("/login", handler.Login)
 	r.POST("/check", handler.Check)
+	r.GET("/health", handler.Health)
 }
 func Start(address string) error {
 	return r.Run(address)

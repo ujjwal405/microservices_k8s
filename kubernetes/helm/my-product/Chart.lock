@@ -1,0 +1,9 @@
+dependencies:
+- name: my-authentication
+  repository: file://..//my-authentication
+  version: 0.1.0
+- name: my-mail
+  repository: file://..//my-mail
+  version: 0.1.0
+digest: sha256:fe02912863899366398b1922794a298bab3ac2e5720c4970b0dd81dff28fe5b4
+generated: "2024-05-16T19:33:19.2361365+05:45"

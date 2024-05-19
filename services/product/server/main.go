@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	_ "net/http/pprof"
 	"os"
 
 	product "github.com/Ujjwal405/microservices/services/product"

@@ -5,6 +5,6 @@ RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -o /app/bin ./server
 
 
-FROM alpine:latest AS production
+FROM scratch AS production
 COPY --from=builder /app/bin /bin/app
 ENTRYPOINT ["/bin/app"] 

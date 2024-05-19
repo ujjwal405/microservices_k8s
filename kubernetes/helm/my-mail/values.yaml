@@ -1,0 +1,91 @@
+# Default values for my-mail.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: my-mail
+
+replicaCount: 1
+
+label: my-mail
+
+containerName: my-mail
+
+image:
+  imageName: ujjwal0/microservices-mail:latest
+  pullPolicy: IfNotPresent
+
+ports:
+  jsonPort: 8080 
+  
+
+restartPolicy: Always
+
+env:
+- name: FROM_EMAIL_ADDRESS
+  valueFrom:
+    secretKeyRef:
+      name: my-mail
+      key: FROM_EMAIL_ADDRESS
+
+
+- name:  RABBITMQ_ADD
+  valueFrom:
+    secretKeyRef:
+      name: my-mail
+      key:  RABBITMQ_ADD
+
+- name: FROM_PASSWORD_EMAIL
+  valueFrom:
+    secretKeyRef:
+      name: my-mail
+      key:  FROM_PASSWORD_EMAIL
+
+- name: Name
+  valueFrom:
+    secretKeyRef:
+      name: my-mail
+      key:  Name
+
+terminationGracePeriodSeconds: 60
+
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - /bin/bash
+      - -c
+      - sleep 20
+
+
+resource:
+  limits:
+    memory: 400Mi
+    cpu: 500m
+  requests:
+    memory: 300Mi
+    cpu: 500m
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 3000
+  readOnlyRootFilesystem: true
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /health 
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 10
+
+serviceName: my-mail
+
+service: 
+  type:

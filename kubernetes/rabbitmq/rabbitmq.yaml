@@ -1,0 +1,74 @@
+apiVersion: v1  
+kind: Service
+metadata:
+  name: rabbit-svc
+spec:
+  clusterIP: None
+  selector:
+    role: rabbit
+  ports:
+  - name: notui
+    port: 5672
+    targetPort: 5672
+  - name: ui
+    port: 15672
+    targetPort: 15672
+---
+apiVersion: apps/v1 
+kind: StatefulSet
+metadata:
+  name: rabbitmq
+spec:
+  serviceName: "rabbit-svc"
+  replicas: 1
+  selector:
+    matchLabels:
+      role: rabbit
+  template:
+    metadata:
+      labels:
+        role: rabbit
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: rabbit
+          image: rabbitmq:management-alpine
+          ports:
+          - containerPort: 5672
+          - containerPort: 15672
+          resources:
+            limits:
+              memory: 400Mi
+              cpu: 500m
+            requests:
+              memory: 300Mi
+              cpu: 500m
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 3000
+            readOnlyRootFilesystem: true
+          env:
+          - name: RABBITMQ_DEFAULT_USER
+            valueFrom:
+              secretKeyRef:
+                name: rabbit-creds
+                key: username
+          - name: RABBITMQ_DEFAULT_PASS
+            valueFrom:
+              secretKeyRef:
+                name: rabbit-creds
+                key: password
+          volumeMounts:
+            - name: mongo-persistent-storage
+              mountPath: /var/lib/rabbitmq 
+  volumeClaimTemplates:
+  - metadata:
+      name: mongo-persistent-storage
+      annotations:
+        volume.beta.kubernetes.io/storage-class: "standard"
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 50Mi

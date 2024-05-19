@@ -1,0 +1,17 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: mongo-creds
+  namespace: db
+spec:
+  encryptedData:
+    password: AgCvsbvy16mz+cwenRqlMw7aoWTgkjS3N4Mnl9cZYAP6P442dBOleC9xR//k9g7mZAjny5Ma43sVApFuS78+Vdj6tM+8BhZAiGFLcBWZ8ww77ZkVeXjcBwpd4O9q1ekfLMHG+FyfI0+z/jiUO9+BPpta7MZLhDULXh4oLKHO+CK004rQNY8EtdJlbyaRyCYwjVffUMrUFN6DGPtmp2DEak8/r78vlf3ECWQH8iyomfK5X5GPGoswBqFjQOT/YRsH+nPlSf27pIY9P3BxOGVbWxljmggoBsYHt3fUT7cRp048hZN9x0n8V+ESd126nEoVi2Fs7Kif7YG/U2LSrQ45hz113UTt2ljyFeEStr9Cs6ZOtheFKrGUx47Rc/CCGlqLQfx3LvAxJ0F1wsTw0q+MrXZHtP/WzQHs0R/6Xvi6Mio52F3ToQNIRkMZ6QDfPHnIgLs+/NB2BN7wFnMelpU4ySlNSVJjDQCWuNBHAVgEROZ+h62+w2yDdAaC2ujEkOLvxMCcotk/nB1ZGy7rPqJsB0PYvH3q+CaOE9y27iWKfN6Pw4psdDq0GmnHoLcSoXTUokxDeZtfRPcsxLIe1ILwT6muN3iXzUaElhkHQx9avpy8QZoLIFU5pUNExeYuht+Fn27X/IhY+pB4Ke9egvP9JfBgWE+uIKXfjC1BCw2nb+pZ5AT43j1Bc2OiyMBa1VkRQlTqcdh4ZD2e7A==
+    username: AgClZ75hPSzQhj7PhHDi1nJXOw6nwfZJ2sfA/kHGFydeUeFSlApWHp+4/BBzkMjgMrt9NTIUHX4QEyAHOtXf1638HTN61aR2KZ+uHUCSEMyerZyB47OcVaIB03+b9Ra6a1jG/A97hguo+h+6uWu8M5P9r7CT0ab6GyyySAXJ75WeF9Cw5SUd0rsLRI3ZUm8zn5bVJYk6i2IL4a5bTAlsfSHlQgnOnUrDpfyhl1957r9CFB2UfWu4CIt9OnBwxNGQa2eZix8p/e1kme0uAecKPXQ3qDQsDDoAGiV9KbSdMxfFe+TLakR/rZgWiuVXbho555vxvsEaye/+1WqwSWtyOciNCu0VcYrH8HB21Hq4JkKd/NcKBAqm9rVf1PWogu+nStqmSQpoBtGIbCSfZevkrU8vlZfj6L6LlyolXGcCrTaaO5Ujfs78KAJRM3axE+6tZB0U3VqGEm8KS2Atdov92Ssp4+htcxPHQQDl5tEG2n8y2zljqXs4c0S/l0o0hbRuQW/v1Jfe6gshsVJ3MY1IZ975sUT9Rdw4z4FcT5kDJBTDn7GnmaR85U+DQDTfTcBZlI4rWUIGh/cV+QLTO8UumyH6zwq4SlsFccRpceF3brbXFUpZaoIrO7cvc83StV8BrUnHOT1brrRPVsD7pzuvPAKRP+gYkpxKGcixyUkwa+8W2o9AqG4LiJFe6xyRUMecFJrxHbZJ
+  template:
+    metadata:
+      creationTimestamp: null
+      name: mongo-creds
+      namespace: db
+    type: Opaque
+

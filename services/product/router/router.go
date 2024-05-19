@@ -10,6 +10,7 @@ var r *gin.Engine
 
 func InitRoutes(handler *product.Handler, mid *middleware.Middleware) {
 	r = gin.Default()
+	r.GET("/health", handler.Health)
 	r.Use(mid.AuthMiddleware())
 	r.POST("/addproduct", handler.AddProduct)
 	r.GET("/searchproduct", handler.SearchProduct)

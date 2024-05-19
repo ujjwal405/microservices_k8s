@@ -50,3 +50,7 @@ func (h *Handler) SearchProduct(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"product": products})
 }
+
+func (h *Handler) Health(c *gin.Context) {
+	c.JSON(200, nil)
+}

@@ -1,0 +1,68 @@
+# Default values for my-mail.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: my-product
+
+replicaCount: 1
+
+label: my-product
+
+containerName: my-product
+
+image:
+  imageName: ujjwal0/microservices-product:latest
+  pullPolicy: IfNotPresent
+
+ports:
+  jsonPort: 8080 
+  
+
+restartPolicy: Always
+
+env:
+- name:  PRODUCT_MONGO_URL
+  valueFrom:
+    secretKeyRef:
+      name: my-product
+      key:  PRODUCT_MONGO_URL
+
+- name:  AUTHENTICATION_GRPC_ADD
+  valueFrom:
+    secretKeyRef:
+      name: my-product
+      key:  AUTHENTICATION_GRPC_ADD
+
+
+resource:
+  limits:
+    memory: 400Mi
+    cpu: 500m
+  requests:
+    memory: 300Mi
+    cpu: 500m
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 3000
+  readOnlyRootFilesystem: true
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /health 
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 10
+
+serviceName: my-product
+
+service: 
+  type:

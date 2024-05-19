@@ -70,3 +70,7 @@ func (h *Handler) Check(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"success": "successfully signed up"})
 }
+
+func (h *Handler) Health(c *gin.Context) {
+	c.JSON(200, nil)
+}

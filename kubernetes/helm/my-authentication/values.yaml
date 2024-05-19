@@ -1,0 +1,90 @@
+
+
+
+deploymentName: my-auth
+
+replicaCount: 1
+
+label: my-auth
+
+containerName: my-auth
+
+image:
+  imageName: ujjwal0/microservices-authentication:latest
+  pullPolicy: IfNotPresent
+
+ports:
+  jsonPort: 8080 
+  grpcPort: 9090
+
+restartPolicy: Always
+env:
+- name: ADDRESS_AUTH
+  valueFrom:
+    secretKeyRef:
+      name: my-auth
+      key: ADDRESS_AUTH
+
+- name: RABBITMQ_ADD
+  valueFrom:
+    secretKeyRef:
+      name: my-auth
+      key:  RABBITMQ_ADD
+  
+- name: SECRET_KEY
+  valueFrom:
+    secretKeyRef:
+      name: my-auth
+      key:  SECRET_KEY
+
+- name: MONGODB_URL
+  valueFrom:
+    secretKeyRef:
+      name: my-auth
+      key:  MONGODB_URL 
+
+
+
+terminationGracePeriodSeconds: 60
+
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - /bin/bash
+      - -c
+      - sleep 20
+
+
+resource:
+  limits:
+    memory: 400Mi
+    cpu: 500m
+  requests:
+    memory: 300Mi
+    cpu: 500m
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 3000
+  readOnlyRootFilesystem: true
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /health 
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 10
+
+serviceName: my-auth
+
+service: 
+  type:

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "my-mail-name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "my-label" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "my-label" . | nindent 8 }}
+    spec:
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      restartPolicy: {{ .Values.restartPolicy }}
+      containers:
+      - name: {{ .Values.containerName }}
+        image:  {{ .Values.image.imageName }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.ports.jsonPort }}
+        env:
+        {{- toYaml .Values.env | nindent 8 }}
+        resources:
+         {{- toYaml .Values.resource | nindent 10 }}
+        securityContext:
+        {{- toYaml .Values.securityContext | nindent 10 }}
+        readinessProbe:
+        {{- toYaml .Values.readinessProbe | nindent 10 }}
+        livenessProbe:
+        {{- toYaml .Values.livenessProbe | nindent 10 }}
+        lifecycle:
+        {{- toYaml .Values.lifecycle | nindent 10 }}
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "my-authentication-service" . }}
+spec:
+{{- if .Values.service.type }}
+  type: {{ .Values.service.type }}
+  {{- else }}
+  type: ClusterIP
+  {{- end }}
+  selector:
+    {{- include "my-label" . | nindent 4}}
+  ports:
+  - name: json
+    protocol: TCP 
+    port: {{ .Values.ports.jsonPort }}
+    targetPort: {{ .Values.ports.jsonPort }}
+

@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"os/signal"
 	"syscall"
@@ -25,6 +26,9 @@ func main() {
 		consumer.ConsumeFromQueue()
 	}()
 	go func() {
+		http.Handle("/health", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusOK)
+		}))
 		if err := http.ListenAndServe(":8080", nil); err != nil {
 			panic(err)
 		}

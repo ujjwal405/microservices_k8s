@@ -1,0 +1,17 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: rabbit-creds
+  namespace: db
+spec:
+  encryptedData:
+    password: AgBzSeDB9W8K2iRv0DDHyGVAiP7euK7z4ySyBlKJCKLCtIFeR/7hbTzpsm1FsUx938y52XyZtDHAcMOqv3Elm6+ELl0qbAmf7/iIRuspVnCbB/7+kI88Kfnu7l3J4ON/GLHjgqzw9aT74TC/OdcyfLxX9rNfMEI5fbpQaHcH6l+WjCxMD5CW4wpBCEnhgwJy+Pp3Yen6XkJw2QEB+dV8jdFdGOtbseXZ48KHBzejaHb5DhVGFMl/YgF7uwXYHgq+QH0/9AdAK2DgbOeWHWGZfjJDTRXDFyXquMrSvICJScqn7rS44n7PEs5UXH9jo4U0IXm21hLu4UJNLlGepkoZ1L0BmnV8mt5J7hFLhLdereWM01gF/7Gy+WGCp3iI/rh+hzun8sp6ADJkmTYY/S6mntICj+6PIwMh1WldOh9kMvYpeWAeNa0/iDXWZvPirgC4ZtNRUOMuKxTFxwuCZ29C7JpDQIa5g4h6DshqAFULpZ+SUEOEn53kXrwmAAEpY/1Fzkw5I/TqkwxW73vUP85k0WoqD1RYErRwuW7plw9EwUdkwWbmf0pE761w/B7nwQzP/NdF8AFDD+Igw+2gQQdntdmGGfDPTEXqgqACSb8nbtejkABNBanZFnWEtUAe5EjGl8pENAiU8RX5eHer63ATmLVJyudp4WQZquTMe2iQyio/ychwDL1xNw/FkYZukeSYhsUVrpSSq450kbc0
+    username: AgAGG+ts6Vfv3IV4HSKOGl3VoKSl0H0NsghdH4LYsZKmW+RjLAVTy3zUuYoBIC+IOVy6bspQi75LTYw1+QMy4kGfjYIkS3JCy73+gL4nlb0o97snMsFaKK6/CF+D6Ek/OOhJrpX2NuIhwIpXW4OANx5222n9AyU/fqdgNGCxqUc7stCmSqil0FVw2pdBHK6dBBufPIvS4xLHF9Mj4kjUi6IZbjiFjQ7Db117aEFh95dv8+Zcab0gYIpu9/0+/6auKuBkcIaCPB74rRQhBBBEOhh7Mppxol+sgJn0dXKuFSxoQ/6IU5o8cwLl9gCgl8OmDmmmawvr7r6xvHHfLtwzJ0qnBTMgtZ3IQHP5HSQ1YKIZnOCzPW1UXr7Le+grZsiXm7p6TaU+qwaM2VgZaQCHafyjfA7NIttaLy1QP4GklQ2zR7uAgR2JICofWkm74Hlb+JJqOqC5/PqMw+zE8tEPCDbB11/5rnNCmaU99hTEYafMf2Kc3fNFnBjsKJ1zIwkhtQedc3oCqLG64L4yy6gXHFdsY8bjejpQ+J/anXmIcYu8LX4f0LBheoYcIC73WSUp83TClElIKszBW0UxdAOD/wQC0WQH/e+1ZnaOS+yBc34IoeNVFViPQ8TvIkbeOTTqX6fCd9B0+msZGl4HXXWtgldbbaIfapSTKkuON5cPodlSd8ClPSqLXVg+xAd22hWheV+0m1w1
+  template:
+    metadata:
+      creationTimestamp: null
+      name: rabbit-creds
+      namespace: db
+    type: Opaque
+
