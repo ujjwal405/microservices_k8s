@@ -18,6 +18,10 @@ FROM_PASSWORD_EMAIL=  // which is the password for the mail service to send emai
 
 in docker-compose file.
 
+
+
+// For kubernetes
+
 steps:
 1 kubectl create ns app
 2 kubectl create ns db
